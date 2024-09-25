@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.example.aulacomponenteslistagemcolecoes.databinding.ItemCardviewBinding
 
 class MensagemAdapter(
     private val clique: (String) -> Unit
@@ -16,41 +17,11 @@ class MensagemAdapter(
     private var listaMensagens = mutableListOf<Mensagem>()
 
     fun executarOperacao(){
-        /*
-        0 - jamilton
-        1 - ana
-        2 - maria
-        3 - pedro
-        * */
 
         listaMensagens.removeAt(1)
         listaMensagens.removeAt(2)
         notifyItemRangeRemoved(1, 2)
         //notifyItemRemoved(1)
-
-
-        /*listaMensagens[0] = Mensagem("jamilton DAMASCENO", "Deu tudo certo?", "11:45")
-        listaMensagens[1] = Mensagem("Ana", "Olá, tudo bem?", "11:45")
-        notifyItemRangeChanged(0, 2)*/
-        /*listaMensagens[0] = Mensagem("jamilton DAMASCENO", "Deu tudo certo?", "11:45")
-        notifyItemChanged( 0 )*/
-        /*listaMensagens.add(
-            //1,
-            Mensagem("Nova Pedro", "teste", "17:12")
-        )
-        listaMensagens.add(
-            //1,
-            Mensagem("Nova Maria", "teste Maria", "11:16")
-        )
-        listaMensagens.add(
-            //1,
-            Mensagem("Nova João", "teste João", "11:16")
-        )*/
-
-
-        //notifyItemRangeInserted(2, 3)
-        //notifyItemInserted( listaMensagens.size )
-
     }
 
     fun atualizarListaDados( lista: MutableList<Mensagem> ){
@@ -60,26 +31,16 @@ class MensagemAdapter(
     }
 
     inner class MensagemViewHolder(
-        val itemView: View
-    ) : ViewHolder( itemView )  {
-
-        /*val textNome: TextView = itemView.findViewById(R.id.text_nome)
-        val textUltima: TextView = itemView.findViewById(R.id.text_ultima)*/
-
-        val textNome: TextView = itemView.findViewById(R.id.text_card_nome)
-        val textUltima: TextView = itemView.findViewById(R.id.text_card_ultima)
-        val imagePerfil: ImageView = itemView.findViewById(R.id.image_card_perfil)
-        val cardView: CardView = itemView.findViewById(R.id.card_view_layout)
-        //val textHorario: TextView = itemView.findViewById(R.id.text_horario)
+        val binding: ItemCardviewBinding
+    ) : ViewHolder( binding.root )  {
 
         fun bind( mensagem: Mensagem ){//Conectar com a interface
 
-            textNome.text = mensagem.nome
-            textUltima.text = mensagem.ultima
+            binding.textCardNome.text = mensagem.nome
+            binding.textCardUltima.text = mensagem.ultima
 
             //Aplicar eventos de clique
-            //val context = cardView.context
-            cardView.setOnClickListener {
+            binding.cardViewLayout.setOnClickListener {
                 clique( mensagem.nome )
             }
         }
@@ -93,12 +54,9 @@ class MensagemAdapter(
             parent.context
         )
 
-        /*val itemView = layoutInflater.inflate(
-            R.layout.item_lista, parent, false
-        )*/
 
-        val itemView = layoutInflater.inflate(
-            R.layout.item_cardview, parent, false
+        val itemView = ItemCardviewBinding.inflate(
+            layoutInflater, parent, false
         )
 
         return MensagemViewHolder( itemView )

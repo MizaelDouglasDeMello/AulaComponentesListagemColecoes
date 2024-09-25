@@ -11,16 +11,21 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Recycler
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.example.aulacomponenteslistagemcolecoes.databinding.ActivityRecyclerviewBinding
 
 class RecyclerviewActivity : AppCompatActivity() {
 
-    private lateinit var rvLista: RecyclerView
-    private lateinit var btnClique: Button
+    private val binding by lazy {
+        ActivityRecyclerviewBinding.inflate(layoutInflater)
+    }
+
+//    private lateinit var rvLista: RecyclerView
+//    private lateinit var btnClique: Button
     private lateinit var mensagemAdapter: MensagemAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_recyclerview)
+        setContentView(binding.root)
 
         val lista = mutableListOf(
             Mensagem("jamilton", "Olá, tudo bem?", "10:45"),
@@ -29,8 +34,8 @@ class RecyclerviewActivity : AppCompatActivity() {
             Mensagem("pedro", "Futebol hoje?", "15:32"),
         )
 
-        rvLista = findViewById(R.id.rv_lista)
-        btnClique = findViewById(R.id.btn_clique)
+//        rvLista = findViewById(R.id.rv_lista)
+//        btnClique = findViewById(R.id.btn_clique)
 
         //tipo: MensagemAdapter, Adapter
         mensagemAdapter = MensagemAdapter { nome ->
@@ -47,16 +52,16 @@ class RecyclerviewActivity : AppCompatActivity() {
         mensagemAdapter.atualizarListaDados(
             lista
         )
-        rvLista.adapter = mensagemAdapter
+        binding.rvLista.adapter = mensagemAdapter
 
         //LinearLayoutManager (XML e Código)
-        rvLista.layoutManager = LinearLayoutManager(
+        binding.rvLista.layoutManager = LinearLayoutManager(
             this,
             RecyclerView.VERTICAL,
             false
         )
 
-        btnClique.setOnClickListener {
+        binding.btnClique.setOnClickListener {
 
             mensagemAdapter.executarOperacao()
             /*
